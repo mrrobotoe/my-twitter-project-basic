@@ -41,7 +41,11 @@ const TwitterLayout = ({ children }: TwitterLayoutProps) => {
           <span>{isAuthenticated && currentUser.name}</span>
         </header>
         <Cluster>
-          <Box padding="var(--s-3)">Home</Box>
+          <Box padding="var(--s-3)">
+            <Link style={{ textDecoration: 'none' }} to={routes.home()}>
+              Home
+            </Link>
+          </Box>
           <Box padding="var(--s-3)">Messages</Box>
           <Box padding="var(--s-3)">Notifications</Box>
           {isAuthenticated ? (

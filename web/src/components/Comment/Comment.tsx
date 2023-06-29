@@ -17,7 +17,7 @@ const Comment = ({ comment }) => {
     >
       <Stack space={'var(--s-4)'}>
         <Cluster space="10px">
-          <CommentName>{comment.name}</CommentName>
+          <CommentName>@{comment.name}</CommentName>
           <CommentTime dateTime={comment.createdAt}>
             {formattedDate(comment.createdAt)}
           </CommentTime>

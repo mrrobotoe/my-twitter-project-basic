@@ -37,7 +37,7 @@ const TweetLayout = ({ tweet, summary }: Props) => {
       <Stack>
         <Box>
           <Stack as="article">
-            <span>By {tweet.user.name}</span>
+            <h4>@{tweet.user.name}</h4>
             <Box $borderThickness="0" as="p">
               {tweet.body}
             </Box>
