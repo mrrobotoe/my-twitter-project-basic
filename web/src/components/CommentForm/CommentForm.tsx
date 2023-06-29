@@ -62,7 +62,7 @@ const CommentForm = ({ postId }: Props) => {
           <FormError error={error} />
           <Stack space="var(--s0)">
             <TextAreaFieldContainer
-              placeholder="What's happening?!"
+              placeholder="Reply to this tweet!"
               rows={3}
               name="body"
               validation={{ required: true }}
