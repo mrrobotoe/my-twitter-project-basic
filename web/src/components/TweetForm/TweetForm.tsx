@@ -3,11 +3,10 @@ import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/dist/toast'
 
 import { useAuth } from 'src/auth'
+import { CREATE_POST_MUTATION } from 'src/components/Post/NewPost'
+import { QUERY as TweetsQuery } from 'src/components/TweetsCell'
 import { Box } from 'src/styles/Box/Box.styled'
 import { Stack } from 'src/styles/Stack/Stack.styled'
-
-import { CREATE_POST_MUTATION } from '../Post/NewPost'
-import { QUERY as TweetsQuery } from '../TweetsCell'
 
 import { SubmitContainer, TextAreaFieldContainer } from './TweetForm.styled'
 

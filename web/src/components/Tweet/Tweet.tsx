@@ -1,16 +1,21 @@
-import { Post } from 'types/graphql'
+import { EditPostById, Post, UpdatePostInput } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 import { useQuery } from '@redwoodjs/web'
+import { useMutation } from '@redwoodjs/web'
+import { toast } from '@redwoodjs/web/dist/toast'
 
 import CommentForm from 'src/components/CommentForm'
 import CommentsCell from 'src/components/CommentsCell'
 import { QUERY as TweetQuery } from 'src/components/TweetCell'
+import { QUERY as TweetsQuery } from 'src/components/TweetsCell'
 import { Box } from 'src/styles/Box/Box.styled'
 import { Center } from 'src/styles/Center/Center.styled'
 import { Cluster } from 'src/styles/Cluster/Cluster.styled'
 import { WithIcon, Icon } from 'src/styles/Icon/Icon.styled'
 import { Stack } from 'src/styles/Stack/Stack.styled'
+
+import { UPDATE_POST_MUTATION } from '../Post/EditPostCell'
 
 import CommentLogo from './commentIcon.svg'
 import LikeLogo from './likeIcon.svg'
@@ -28,9 +33,23 @@ interface Props {
 }
 
 const TweetLayout = ({ tweet, summary }: Props) => {
+  const [updatePost] = useMutation(UPDATE_POST_MUTATION, {
+    onCompleted: () => {
+      toast.success('Thanks for the like!')
+    },
+    onError: (error) => {
+      toast.error(error.message)
+    },
+    refetchQueries: [{ query: TweetsQuery }],
+  })
+
   const { data } = useQuery(TweetQuery, {
     variables: { id: tweet.id },
   })
+
+  const onSave = (input: UpdatePostInput, id: EditPostById['post']['id']) => {
+    updatePost({ variables: { id, input } })
+  }
 
   return (
     <Center>
@@ -51,7 +70,20 @@ const TweetLayout = ({ tweet, summary }: Props) => {
           </Box>
           <Box $borderThickness="0">
             <Cluster style={{ zIndex: 3 }}>
-              <Box padding="0.5" $borderThickness="0">
+              <Box
+                padding="0.5"
+                $borderThickness="0"
+                onClick={() =>
+                  onSave(
+                    {
+                      body: tweet.body,
+                      likes: tweet.likes + 1,
+                      comments: tweet.comments,
+                    },
+                    tweet.id
+                  )
+                }
+              >
                 <WithIcon>
                   <Icon $withIcon onClick={console.log}>
                     <LikeLogo />
