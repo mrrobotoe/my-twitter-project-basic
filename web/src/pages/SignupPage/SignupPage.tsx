@@ -125,7 +125,10 @@ const SignupPage = () => {
                   <FieldError name="password" className="rw-field-error" />
 
                   <div className="rw-button-group">
-                    <Submit className="rw-button rw-button-blue">
+                    <Submit
+                      disabled={true}
+                      className="rw-button rw-button-blue"
+                    >
                       Sign Up
                     </Submit>
                   </div>
